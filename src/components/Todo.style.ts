@@ -3,24 +3,21 @@ import { css } from "@emotion/react";
 
 export const todoStyle = css`
   height: 100vh;
-  width: 100vw;
   background-color: #ccbebc;
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  padding-top: 50px;
 `;
 
 export const innerDiv = css`
-  height: auto;
-  min-height: 600px;
+  height: 500px;
   width: 600px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 30px;
   padding: 20px;
-  border: 1px solid red;
+  margin-top: 50px;
   background-color: #fff8f0;
   border-radius: 15px;
 `;
@@ -34,6 +31,7 @@ export const form = css`
 
 export const input = css`
   height: 50px;
+  width: 400px;
   flex: 1;
   font-size: 18px;
   padding: 0 15px;

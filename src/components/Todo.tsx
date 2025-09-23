@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { buttonStyle, form, innerDiv, input, todoStyle } from "./Todo.style";
 import ActiveTodos from "./ActiveTodos";
+import Form from "./Form";
 
 // Define what a single todo looks like
 export interface TodoItem {
@@ -55,21 +56,11 @@ const Todo: React.FC = () => {
       <div css={innerDiv}>
         <h1>My Daily Todos</h1>
 
-        <form css={form} onSubmit={handleAddTodo}>
-          <input
-            css={input}
-            type="text"
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-            placeholder="Enter your todo"
-          />
-          {/* 🔹 Add Button (unique style) */}
-          <button
-            css={buttonStyle("blue", "darkblue", "120px", "50px", "16px")}
-            type="submit">
-            Add
-          </button>
-        </form>
+        <Form
+          inputValue={inputValue}
+          setInputValue={setInputValue}
+          handleAddTodo={handleAddTodo}
+        />
 
         <h2>Active Todos</h2>
         <ActiveTodos

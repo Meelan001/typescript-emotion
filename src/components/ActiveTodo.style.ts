@@ -1,6 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 
+export const activeTodoStyle = css`
+  height: 400px;
+  overflow: auto;
+  padding: 10px;
+`;
+
 export const todoList = css`
   display: flex;
   justify-content: space-between;

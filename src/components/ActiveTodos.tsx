@@ -1,5 +1,5 @@
 import React from "react";
-import { icons, todoH1, todoList } from "./ActiveTodo.style";
+import { activeTodoStyle, icons, todoH1, todoList } from "./ActiveTodo.style";
 import { buttonStyle } from "./Todo.style";
 import { TodoItem } from "./Todo";
 
@@ -15,7 +15,7 @@ const ActiveTodos: React.FC<Props> = ({
   onDelete,
 }) => {
   return (
-    <div>
+    <div css={activeTodoStyle}>
       {todos.map((todo) => (
         <div key={todo.id} css={todoList}>
           <div
