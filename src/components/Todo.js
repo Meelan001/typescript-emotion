@@ -1,66 +1,39 @@
-"use strict";
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
-var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
-    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
-        if (ar || !(i in from)) {
-            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
-            ar[i] = from[i];
-        }
-    }
-    return to.concat(ar || Array.prototype.slice.call(from));
-};
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var jsx_runtime_1 = require("@emotion/react/jsx-runtime");
-var react_1 = require("react");
-var Todo_style_1 = require("./Todo.style");
-var ActiveTodos_1 = __importDefault(require("./ActiveTodos"));
-var Form_1 = __importDefault(require("./Form"));
-var LOCAL_STORAGE_KEY = "todos";
-var Todo = function () {
-    var _a = (0, react_1.useState)(function () {
-        var saved = localStorage.getItem(LOCAL_STORAGE_KEY);
+import { jsx as _jsx, jsxs as _jsxs } from "@emotion/react/jsx-runtime";
+import { useState } from "react";
+import { innerDiv, todoStyle } from "./Todo.style";
+import ActiveTodos from "./ActiveTodos";
+import Form from "./Form";
+const LOCAL_STORAGE_KEY = "todos";
+const Todo = () => {
+    const [todos, setTodos] = useState(() => {
+        const saved = localStorage.getItem(LOCAL_STORAGE_KEY);
         return saved ? JSON.parse(saved) : [];
-    }), todos = _a[0], setTodos = _a[1];
-    var _b = (0, react_1.useState)(""), inputValue = _b[0], setInputValue = _b[1];
-    var saveTodos = function (newTodos) {
+    });
+    const [inputValue, setInputValue] = useState("");
+    const saveTodos = (newTodos) => {
         setTodos(newTodos);
         localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newTodos));
     };
-    var handleAddTodo = function (e) {
+    const handleAddTodo = (e) => {
         e.preventDefault();
         if (!inputValue.trim())
             return;
-        var newTodo = {
+        const newTodo = {
             id: Date.now(),
             text: inputValue,
             completed: false,
         };
-        saveTodos(__spreadArray(__spreadArray([], todos, true), [newTodo], false));
+        saveTodos([...todos, newTodo]);
         setInputValue("");
     };
-    var handleToggleComplete = function (id) {
-        var updated = todos.map(function (todo) {
-            return todo.id === id ? __assign(__assign({}, todo), { completed: !todo.completed }) : todo;
-        });
+    const handleToggleComplete = (id) => {
+        const updated = todos.map((todo) => todo.id === id ? { ...todo, completed: !todo.completed } : todo);
         saveTodos(updated);
     };
-    var handleDelete = function (id) {
-        var updated = todos.filter(function (todo) { return todo.id !== id; });
+    const handleDelete = (id) => {
+        const updated = todos.filter((todo) => todo.id !== id);
         saveTodos(updated);
     };
-    return ((0, jsx_runtime_1.jsx)("div", { css: Todo_style_1.todoStyle, children: (0, jsx_runtime_1.jsxs)("div", { css: Todo_style_1.innerDiv, children: [(0, jsx_runtime_1.jsx)("h1", { children: "My Daily Todos" }), (0, jsx_runtime_1.jsx)(Form_1.default, { inputValue: inputValue, setInputValue: setInputValue, handleAddTodo: handleAddTodo }), (0, jsx_runtime_1.jsx)("h2", { children: "Active Todos" }), (0, jsx_runtime_1.jsx)(ActiveTodos_1.default, { todos: todos, onToggleComplete: handleToggleComplete, onDelete: handleDelete })] }) }));
+    return (_jsx("div", { css: todoStyle, children: _jsxs("div", { css: innerDiv, children: [_jsx("h1", { children: "My Daily Todos" }), _jsx(Form, { inputValue: inputValue, setInputValue: setInputValue, handleAddTodo: handleAddTodo }), _jsx("h2", { children: "Active Todos" }), _jsx(ActiveTodos, { todos: todos, onToggleComplete: handleToggleComplete, onDelete: handleDelete })] }) }));
 };
-exports.default = Todo;
+export default Todo;
