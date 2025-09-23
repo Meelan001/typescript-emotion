@@ -19,7 +19,9 @@ const Form: React.FC<FormProps> = ({
           css={input}
           type="text"
           value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setInputValue(e.target.value)
+          }
           placeholder="Enter your todo"
         />
         <button

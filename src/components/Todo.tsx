@@ -1,9 +1,8 @@
-import React, { useState } from "react";
-import { buttonStyle, form, innerDiv, input, todoStyle } from "./Todo.style";
+import React, { useState, useEffect } from "react";
+import { innerDiv, todoStyle } from "./Todo.style";
 import ActiveTodos from "./ActiveTodos";
 import Form from "./Form";
 
-// Define what a single todo looks like
 export interface TodoItem {
   id: number;
   text: string;
@@ -20,10 +19,9 @@ const Todo: React.FC = () => {
 
   const [inputValue, setInputValue] = useState("");
 
-  const saveTodos = (newTodos: TodoItem[]) => {
-    setTodos(newTodos);
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newTodos));
-  };
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todos));
+  }, [todos]);
 
   const handleAddTodo = (e: React.FormEvent) => {
     e.preventDefault();
@@ -35,20 +33,20 @@ const Todo: React.FC = () => {
       completed: false,
     };
 
-    saveTodos([...todos, newTodo]);
+    setTodos([...todos, newTodo]);
     setInputValue("");
   };
 
   const handleToggleComplete = (id: number) => {
-    const updated = todos.map((todo) =>
-      todo.id === id ? { ...todo, completed: !todo.completed } : todo
+    setTodos(
+      todos.map((todo) =>
+        todo.id === id ? { ...todo, completed: !todo.completed } : todo
+      )
     );
-    saveTodos(updated);
   };
 
   const handleDelete = (id: number) => {
-    const updated = todos.filter((todo) => todo.id !== id);
-    saveTodos(updated);
+    setTodos(todos.filter((todo) => todo.id !== id));
   };
 
   return (
@@ -63,11 +61,17 @@ const Todo: React.FC = () => {
         />
 
         <h2>Active Todos</h2>
-        <ActiveTodos
-          todos={todos}
-          onToggleComplete={handleToggleComplete}
-          onDelete={handleDelete}
-        />
+        {todos.length === 0 ? (
+          <p style={{ color: "#555", fontStyle: "italic", marginTop: "10px" }}>
+            You have completed all your tasks 🎉
+          </p>
+        ) : (
+          <ActiveTodos
+            todos={todos}
+            onToggleComplete={handleToggleComplete}
+            onDelete={handleDelete}
+          />
+        )}
       </div>
     </div>
   );
