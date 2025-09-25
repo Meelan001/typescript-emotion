@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { TodoItem } from "./todo.utils";
+import { TodoItem } from "./Todo.utils";
 
 const LOCAL_STORAGE_KEY = "todos";
 

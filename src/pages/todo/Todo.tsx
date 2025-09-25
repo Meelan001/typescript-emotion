@@ -1,7 +1,9 @@
 import React from "react";
 import { useTodoLogic } from "./Todo.ligic";
-import { buttonStyle, form, innerDiv, input, todoStyle } from "./Todo.styles";
+import { form, innerDiv, todoStyle } from "./Todo.styles";
 import ActiveTodos from "../../components/ActiveTodos";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 const Todo: React.FC = () => {
   const {
@@ -19,18 +21,21 @@ const Todo: React.FC = () => {
         <h1>My Daily Todos</h1>
 
         <form css={form} onSubmit={handleAddTodo}>
-          <input
+          {/* <input
             css={input}
             type="text"
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             placeholder="Enter your todo"
+          /> */}
+
+          <Input
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+            placeholder="Enter your todo"
           />
-          <button
-            css={buttonStyle("yellow", "orange", "120px", "50px", "16px")}
-            type="submit">
-            Add
-          </button>
+
+          <Button type="submit">Shadcn</Button>
         </form>
 
         <h2>Active Todos</h2>
