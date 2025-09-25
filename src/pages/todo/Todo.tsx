@@ -1,0 +1,47 @@
+import React from "react";
+import { useTodoLogic } from "./Todo.ligic";
+import { buttonStyle, form, innerDiv, input, todoStyle } from "./Todo.styles";
+import ActiveTodos from "../../components/ActiveTodos";
+
+const Todo: React.FC = () => {
+  const {
+    todos,
+    inputValue,
+    setInputValue,
+    handleAddTodo,
+    handleToggleComplete,
+    handleDelete,
+  } = useTodoLogic();
+
+  return (
+    <div css={todoStyle}>
+      <div css={innerDiv}>
+        <h1>My Daily Todos</h1>
+
+        <form css={form} onSubmit={handleAddTodo}>
+          <input
+            css={input}
+            type="text"
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+            placeholder="Enter your todo"
+          />
+          <button
+            css={buttonStyle("yellow", "orange", "120px", "50px", "16px")}
+            type="submit">
+            Add
+          </button>
+        </form>
+
+        <h2>Active Todos</h2>
+        <ActiveTodos
+          todos={todos}
+          onToggleComplete={handleToggleComplete}
+          onDelete={handleDelete}
+        />
+      </div>
+    </div>
+  );
+};
+
+export default Todo;
